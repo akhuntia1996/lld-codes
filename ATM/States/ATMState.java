@@ -5,9 +5,9 @@ abstract class State {
         return this;
     }
     
-    public State validatePin(Card card, int pin){
+    public boolean validatePin(Card card, int pin){
         System.out.println("Not allowed !!");
-        return this;
+        return false;
     }
     
     public State chooseOperations(Card card, TransactionType txnType) {
