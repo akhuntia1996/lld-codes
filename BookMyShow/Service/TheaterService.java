@@ -1,0 +1,6 @@
+
+@Service
+public class TheaterService {
+
+    
+}

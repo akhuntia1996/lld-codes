@@ -6,17 +6,27 @@ public class Booking {
     private Payment payment;
 
 
-    public void doBooking() {
-        if(userRole == UserRole.GUEST){
+    public void doBooking(User user, Seat seat) {
+        if(user.getUserRole() == UserRole.GUEST){
             System.out.println("Not allowed");
             return;
         }
+
+        seats.forEach( (s) -> { 
+            if(s.getId == seat.getId())
+                s.setIsBooked(true);
+        });
     }
 
-    public void cancelBooking() {
-        if(userRole == UserRole.GUEST){
+    public void cancelBooking(User user, Seat seat) {
+        if(user.getUserRole() == UserRole.GUEST){
             System.out.println("Not allowed");
             return;
         }
+
+        seats.forEach( (s) -> { 
+            if(s.getId == seat.getId())
+                s.setIsBooked(false);
+        });
     }
 }

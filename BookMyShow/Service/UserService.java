@@ -18,4 +18,28 @@ class UserService {
                 return u;
         }
     }
+
+    public void doBooking(User user, Show show, List<Seat> seats){
+        try {
+            for(Seat s:seats){
+                show.doBooking(user, s);
+            }
+        } catch(Exception ee){
+            ee.printStackTrace();
+        }
+
+        System.out.println("Booked Successfully");
+    }
+
+    public void cancelBooking(User user, Show show, List<Seat> seats){
+        try {
+            for(Seat s:seats){
+                show.cancelBooking(user, s);
+            }
+        } catch(Exception ee){
+            ee.printStackTrace();
+        }
+
+        System.out.println("Cancelled Booking Successfully");
+    }
 }
