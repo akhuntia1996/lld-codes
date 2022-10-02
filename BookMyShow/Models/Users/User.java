@@ -14,8 +14,9 @@ class User {
         this.password = password;
     }
 
-    public void fetchMovies(){
-
+    public List<Movie> fetchMovies(String city){
+        // check from the database 
+        return movieRepoistory
     }
 
     // Getter and Setters
