@@ -42,4 +42,6 @@ class UserService {
 
         System.out.println("Cancelled Booking Successfully");
     }
+
+    // CRUD on Users -- only by admin
 }

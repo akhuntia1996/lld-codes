@@ -19,4 +19,6 @@ public class MovieService {
     public List<Movie> fetchMovies(User user, String city){
         return new ArrayList<>(movieList.get(city).values());
     }
+
+    // CRUD on Movies -- Only done by Admin
 }
