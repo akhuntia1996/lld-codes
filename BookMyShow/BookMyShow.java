@@ -36,9 +36,14 @@ public class BookMyShow {
         // 6. doBooking
         userService.doBooking(validUser, selectedShow, seats);
 
-        // 7. Cancel Booking
+        // 7. payment
+        paymentService.doPayment(seats);
+
+        // 8. Cancel Booking
         userService.cancelBooking(validUser, selectedShow, seats);
 
+        // 9. Refund
+        // ...
         
     }
 }
