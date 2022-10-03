@@ -1,3 +1,10 @@
+
+/*
+    THis class used as a Facade design pattern
+    This class's responsibily is to only serve the client request, 
+        irrespective for all the calling of models
+ */
+
 public class RentCarsService {
 
     List<String, Store> stores;
