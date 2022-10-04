@@ -4,6 +4,7 @@ public class CarRent {
 
         // Initiliaztion
         RentCarService rentCarService = new RentCarService();
+        BookingService bookingService = new BookingService();
 
         // PROCESSING ...
 
@@ -24,7 +25,7 @@ public class CarRent {
 
         // 5. Book that vechile
         int hours;
-        Booking booking = rentCarService.doBooking(user, vehicle, hours);
+        Booking booking = bookingService.doBooking(user, vehicle, hours);
 
         // 6. Generate Bill
         Bill bill = new Bill();
@@ -36,7 +37,7 @@ public class CarRent {
         payment.doPayment();
 
         // 8. Cancel Booking
-        rentCarService.cancelBooking(booking);
+        bookingService.cancelBooking(booking);
 
         // 9. Refund
         // ...
