@@ -4,8 +4,8 @@ public class Dice {
 
     int faces;
 
-    public int generateRandomNumber(){
+    public int rollDice(){
         Random random = new Random();
-        return random.nextInt(faces);
+        return random.nextInt(faces+1);
     }
 }

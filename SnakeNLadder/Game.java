@@ -15,7 +15,6 @@ public class Game {
         // intialization ...
         board = new Board();
         board.intialize(snakes, ladders);
-        dices = new ArrayList<>();
         players = new LinkedList<>();
 
         // Play game ...
@@ -23,7 +22,23 @@ public class Game {
         while(checkWinner()){
             Player currentPlayer = players.remove();
 
-            rollDice(dice);
+            int sum = rollDice(dice);
+            int newPosition = currentPlayer.getPosition() + sum;
+            if(newPosition > 99){
+                players.add(currentPlayer);
+                continue;
+            }
+
+            // check for snake or ladder...
+            int row = newPosition / 10;
+            int col = newPosition % 10;
+            Jump jump = board.getCells(row, col);
+            if(jump != null)
+                if(jump.getStart() == newPosition)
+                    newPosition = jump.getEnd();
+            }
+
+            players.add(currentPlayer);
         }
 
         System.out.println("Winner : " + getWinnerName());
@@ -33,16 +48,18 @@ public class Game {
 
         int sum = 0;
         for(int i=0;i<dice;i++){
-            sum += dic
+            sum += dice.rollDice();
         }
+
+        return sum;
     }
 
     public boolean checkWinner(){
         for(Player player:players){
             if(player.getPosition() == 99)
-                return true;
+                return false;
         }
-        return false;
+        return true;
     }
 
     public String getWinnerName(){

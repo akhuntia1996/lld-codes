@@ -38,4 +38,8 @@ public class Board {
             ladder--;
         }
     }
+
+    public Jump getCell(int row, int col){
+        return cells[row][col].getJump();
+    }
 }
