@@ -1,6 +1,6 @@
 public class Pawn extends Jump {
 
-    private int countMoves;
+    private static int countMoves;
 
     public Pawn(){ 
         countMoves = 0;
