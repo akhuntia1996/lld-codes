@@ -3,7 +3,23 @@ public abstract class Jump {
     int position;
     boolean isAlive;
 
-    public abstract boolean move(Player player, int endPosition);
+    public boolean move(Player player, int endPosition){
+        // Algorithm 
+        // 1. Convert Start Position and end position to row and cols
+        // 2. Check for White (Start at bottom) or Black (Start at top)
+        // 3. Check Rule
+        // 4. SetPosition
+
+        List<Integer> endPositions = this.getAllPossiblePosition(player);
+        for(int x : endPositions){
+            if(x == endPosition){
+                this.setPosition(endPosition);
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public abstract List<Integer> getAllPossiblePosition(Player player);
 

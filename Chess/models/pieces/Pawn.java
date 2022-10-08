@@ -7,17 +7,38 @@ public class Pawn extends Jump {
     }
 
     @Override
-    public abstract boolean move(Player player,int endPosition){
+    public List<Integer> getAllPossiblePosition(Player player){
+        // Using the rule get the list of positions
+        List<Integer> endPositions;
+        
+        return endPositions;
+    }
+
+    public Jump promotion(){
+        // return a jump piece 
+    }
+
+
+    /*
+    @Override
+    public boolean move(Player player,int endPosition){
 
         // Algorithm 
         // 1. Convert Start Position and end position to row and cols
         // 2. Check for White (Start at bottom) or Black (Start at top)
         // 3. Check Rule
-        // 3.1. If White and 1st move, Check Row for +1 and +2
-        // 3.2. If Black and 1st move, Check Row for -1 and -2;
-        // 3.3. If White and Other move, Check for Row +1
-        // 3.4. If Black and Other move, Check for Row -1
+        // 4. SetPosition
 
+        List<Integer> endPositions = this.getAllPossiblePosition(player);
+        for(int x : endPositions){
+            if(x == endPosition){
+                this.setPosition(endPosition);
+                return true;
+            }
+        }
+
+        return false;
+        
         int[] rowColStart = this.convertPositionToRowColumn(this.startPosition());
         int[] rowColEnd = this.convertPositionToRowColumn(endPosition);
 
@@ -75,8 +96,7 @@ public class Pawn extends Jump {
         }
     }
 
-    @Override
-    public abstract List<Integer> getAllPossiblePosition(Player player){
-        return null;
-    }
+    */
+
+    
 }
