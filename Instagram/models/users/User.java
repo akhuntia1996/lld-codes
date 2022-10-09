@@ -12,9 +12,12 @@ public class User {
 
     private List<Message> messages;
 
+    private AccountType accountType;
+
     public User() {
         this.userRole = UserRole.CUSTOMER;
         this.accountStatus = AccountStatus.ACTIVE;
+        this.accountType = AccountType.NORMAL;
     }
     
 }
