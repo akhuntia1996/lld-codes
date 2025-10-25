@@ -1,0 +1,38 @@
+You are designing a stock price monitoring system where multiple users can subscribe to updates for different stocks. Whenever a stock’s price changes, all users who have subscribed to that stock should be notified immediately.
+
+Functional Req --
+APP - user can login and subscribe for a stock 
+Set a price for a stock, if stock hits that price, then notify
+
+
+
+
+
+
+Follow-Up Questions (for Deep Dive)
+
+How would you guarantee message ordering for a stock stream?
+
+How would you persist subscriptions (in DB or cache)?
+
+What if observers want to pull updates instead of being pushed?
+
+How would you test this system — especially asynchronous parts?
+
+When would you switch to Reactive Streams (Project Reactor / RxJava)?
+
+                    ┌────────────────────────┐
+                    │    Stock Service        │
+                    │ (Price Publisher)       │
+                    └──────────┬──────────────┘
+                               │
+                         [Kafka Topic: "stock_updates"]
+                               │
+             ┌────────────────┴──────────────────┐
+             │                                   │
+ ┌────────────────────┐               ┌────────────────────┐
+ │ Subscription Svc    │               │ Notification Svc   │
+ │ - Manages who       │               │ - Consumes updates │
+ │   subscribes to     │               │ - Sends real-time  │
+ │   what stocks       │               │   notifications     │
+ └────────────────────┘               └────────────────────┘
