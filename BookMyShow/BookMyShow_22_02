@@ -1,0 +1,134 @@
+/*
+Design a backend system similar to BookMyShow where users can:
+Search movies by city
+View theatres running a movie
+See available seats for a sho
+Select seats
+Make payment
+Get booking confirmation
+
+Non Functions --
+Consistency
+Low latency
+
+Entities --
+BookMyShow 
+Movie 
+CinemaHall
+Seat
+Show 
+    CinemaHall, Movie, Location - Index based on Movie and Location
+Booking
+Payment
+
+Class --
+BookMyShow
+- Map<Location, Set<MovieId>>
+- Map<MovieId, List<Show>>
+
+Movie
+- id
+- details
+
+CinemaHall
+- id
+- location
+- details
+- isFull
+- List<Seat>
+
+Seat 
+- id
+- isBooked()
+
+Show
+- showid
+- CinemaHallId
+- MovieId
+
+Booking 
+- id
+- Paymentid
+- showId
+- List<String> seatId
+
+
+
+User - ADMIN, CUSTOMER 
+*/
+
+class BookMyShow {
+    Map<Location, Set<MovieId>> locationMovies;
+    Map<MovieId, List<Show>> movieShow;
+
+    static BookingService bookingService;
+
+    public static void main(String[] args) {
+        // Poluation the locationMoviesMap and movieShowMap
+        
+        // Booking...
+        int showId; // selected by user
+        List<Seat> selectedSeat = showAndSelectSeats(showId);
+
+        bookingService.book(showId, selectSeats);
+    }
+}
+
+class BookingService {
+
+    PaymentService paymentService;
+
+    public String book(Long showId, List<Seat> seats) {
+        double amt;
+        for(Seat s : seats){
+            if(s.isBooked())
+                return "Invalid Seat Selection";
+            amt += s.getPrice();
+            s.setIsBooked(true);
+        }
+
+        PaymentType paymentType = Payment.CARD;
+        paymentService = PaymentFactory.getPaymentService(paymentType);
+        paymentService.pay(amt);
+    }
+}
+
+class PaymentFactory {
+    Map<PaymentType, PaymentService> paymentMap;
+    public PaymentFactory() {
+        paymentMap.put(PaymentType.CARD, new CardPaymentService());
+        // ...
+    }
+}
+
+public interface PaymentService {
+    public boolean pay(int amt, Map<String, String> input);
+}
+
+public class CardPaymentService  implements PaymentService{
+    public boolean payCard(int amt, Map<String, String> input) {
+        // call api to do payment
+        return true;
+    }
+}
+
+/**
+ * 
+ * How will you prevent double booking?
+ * Optimistic Locking + DB constrains
+ * in a distributed system, use redis cache (distributed locking) for mataining the lock
+ * 
+ * Payment Timeouts --
+ * WHen the payment start processing, the change the seat status to HELD
+ * Run a cron job every 1 min, to the use, check if the seat is HELD for more than 5 mins, the FREE it
+ * 
+ * Atomicity with Payment and seat booking = Saga DP
+ * BookingService - HELD SeatSerivce - PaymentService - BOOK SeatService
+ * on any failure above, releaseSeat() in the bookingService
+ * 
+ * Design Patterns --
+ * Strategy = Payment
+ * State = Seat
+ * Saga = Booking
+ * Observer = Notification
+ */
